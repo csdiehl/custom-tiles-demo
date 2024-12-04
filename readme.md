@@ -4,6 +4,8 @@ Caleb Diehl
 
 This is a demo to show how to create and host your own vector tiles.
 
+I removed the source data because it's too large. You can create an `input` and `output` directory and get a waterway OSM extract from (Geofabrik)[https://download.geofabrik.de/north-america.html] to follow along. 
+
 ## Filter.sh
 
 This single line of mapshaper CLI code does 5 things!
