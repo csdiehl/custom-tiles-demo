@@ -6,6 +6,19 @@ This is a demo to show how to create and host your own vector tiles.
 
 I removed the source data because it's too large. You can create an `input` and `output` directory and get a waterway OSM extract from [Geofabrik](https://download.geofabrik.de/north-america.html) to follow along. 
 
+## dependencies
+
+You need to have these CLIs installed. 
+
+- mapshaper
+- tippecanoe
+- mb-util
+- aws S3
+
+## full pipeline
+
+To just run the whole processing pipeline, use the `full_pipeline.sh` script. For individual steps, see below:
+
 ## Filter.sh
 
 This single line of mapshaper CLI code does 5 things!
@@ -22,7 +35,7 @@ Using tippecanoe we turn geojson into mbtiles.
 
 It's critical to use the `--no-tile-compression` flag. Otherwise Maplibre will not be able to read your tiles!
 
-## tile_folder.sh
+## extract_tiles.sh
 
 This takes the single .mbtiles folder and expands it into a directory structure, kind of like unzipping a file. We need to do this because we are rolling our own tileserver.
 
