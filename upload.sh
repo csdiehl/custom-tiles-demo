@@ -1,0 +1,1 @@
+aws s3 sync ./output/tiles s3://tileserver.ap.org/projects/map_demo/tiles --acl public-read

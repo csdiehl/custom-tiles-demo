@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MapLibre Vector Tile Example</title>
+    <link
+      href="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js"></script>
+    <script>
+      const styleEnum = "60cfe2330f624267a66f8ef41f4394c4"
+      // Create the map
+      const map = new maplibregl.Map({
+        container: "map", // Container ID
+        style: "https://demotiles.maplibre.org/style.json", // Replace with the URL to your Mapbox Style JSON file
+        center: [-120.7401, 47.7511], // Initial map center in [longitude, latitude]
+        zoom: 3, // Initial map zoom level
+      })
+
+      // Add navigation controls
+      map.addControl(new maplibregl.NavigationControl(), "top-right")
+
+      // Add vector tiles to the map
+      // https://s3.amazonaws.com/tileserver.ap.org/projects/map_demo/tiles/{z}/{x}/{y}.pbf?1=1
+      // https://s3.amazonaws.com/tileserver.ap.org/projects/pharmacy-map/tiles/{z}/{x}/{y}.pbf?1=1
+
+      map.on("load", () => {
+        map.addSource("rivers", {
+          minzoom: 0,
+          maxzoom: 12,
+          type: "vector",
+          tiles: [
+            "https://s3.amazonaws.com/tileserver.ap.org/projects/map_demo/tiles/{z}/{x}/{y}.pbf?1=1",
+          ],
+        })
+        map.addLayer({
+          "id": "river-data",
+          "type": "line",
+          "source": "rivers",
+          "source-layer": "waterways",
+          "layout": {
+            "line-join": "round",
+            "line-cap": "round",
+          },
+          "paint": {
+            "line-color": "#000000",
+            "line-width": 1,
+          },
+        })
+      })
+    </script>
+  </body>
+</html>
